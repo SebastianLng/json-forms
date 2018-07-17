@@ -243,7 +243,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                     element.setAttribute("data-trigger", dataTrigger);
                     element.setAttribute("data-content", dataContent);
                 } else {
-                    $(element).popover('destroy');
+                    $(element).popover('dispose');
                     element.removeAttribute("data-toggle");
                     element.removeAttribute("data-trigger");
                     element.removeAttribute("data-content");
