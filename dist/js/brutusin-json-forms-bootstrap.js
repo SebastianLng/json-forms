@@ -29,6 +29,10 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
 (function () {
     var BrutusinForms = brutusin["json-forms"];
 
+    BrutusinForms.iconHelpClass = "zmdi zmdi-help";
+    BrutusinForms.iconRemoveClass = "zmdi zmdi-delete";
+    BrutusinForms.iconRefreshClass = "zmdi zmdi-refresh";
+
 // Basic bootstrap css
     BrutusinForms.addDecorator(function (element, schema) {
         if (element.tagName) {
@@ -39,7 +43,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                 element.className += " chosen-select form-control";
             } else if (tagName === "button") {
                 if (element.className === "remove") {
-                    element.className += " glyphicon glyphicon-remove";
+                    element.className += " " + BrutusinForms.iconRemoveClass;
                     while (element.firstChild) {
                         element.removeChild(element.firstChild);
                     }
@@ -61,7 +65,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                     var helpLink = document.createElement("a");
                     helpLink.setAttribute("style", "outline: 0; text-decoration: none; margin-left: 2px;");
                     helpLink.setAttribute("tabIndex", -1);
-                    helpLink.className = "glyphicon glyphicon-info-sign"
+                    helpLink.className =  BrutusinForms.iconHelpClass;
                     helpLink.setAttribute("data-toggle", "popover");
                     helpLink.setAttribute("data-trigger", "focus");
                     if ("undefined" === typeof markdown) {
@@ -124,7 +128,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
     });
     BrutusinForms.bootstrap = new Object();
 // helper button for string (with format) fields
-    BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, glyphicon, cb) {
+    BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, iconClass, cb) {
         BrutusinForms.addDecorator(function (element, schema) {
             if (element.tagName) {
                 var tagName = element.tagName.toLowerCase();
@@ -132,7 +136,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                     if (inputType) {
                         element.type = inputType;
                     }
-                    if (glyphicon) {
+                    if (iconClass) {
                         var parent = element.parentNode;
                         var table = document.createElement("table");
                         table.setAttribute("style", "border:none;margin:0");
@@ -148,7 +152,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                         tr.appendChild(td);
                         td.setAttribute("style", "padding:0");
                         var searchButton = document.createElement("button");
-                        searchButton.className = "btn btn-default glyphicon " + glyphicon;
+                        searchButton.className = "btn btn-default " + iconClass;
                         searchButton.onclick = function () {
                             cb(element);
                         };
@@ -169,7 +173,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                 element.parentNode.style.position = "relative";
                 loading = document.createElement("span");
                 loading.id = loadingId;
-                loading.className = "glyphicon glyphicon-refresh glyphicon-refresh-animate";
+                loading.className = BrutusinForms.iconRefreshClass + " icon-refresh-animate";
                 if (tagName === "select") {
                     loading.className += " loading-icon-select";
                 } else if (element.type === "checkbox") {
